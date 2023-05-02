@@ -3,4 +3,4 @@ environs==5.2.1
 dj-database-url==0.5.0
 phonenumbers==8.13.11
 django-phonenumber-field==5.2.0
-# or other not leser version compatible with Django-2.2.24
+
