@@ -14,8 +14,9 @@ def data_transport(apps, schema_editor):
             owners_phonenumber=flat.owners_phonenumber,
             owner_pure_phone=flat.owner_pure_phone,
         )
-        if owner[1]:
-            owner[0].addresses.add(flat)
+        owner_obj, status = owner
+        if status:
+            owner_obj.addresses.add(flat)
 
 
 class Migration(migrations.Migration):
