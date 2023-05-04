@@ -9,12 +9,11 @@ def data_transport(apps, schema_editor):
     flats = Flat.objects.all()
 
     for flat in flats.iterator():
-        owner = Owner.objects.get_or_create(
+        owner_obj, status = Owner.objects.get_or_create(
             owner=flat.owner,
             owners_phonenumber=flat.owners_phonenumber,
             owner_pure_phone=flat.owner_pure_phone,
         )
-        owner_obj, status = owner
         if status:
             owner_obj.addresses.add(flat)
 
