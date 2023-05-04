@@ -19,7 +19,22 @@ class AdminFlat(admin.ModelAdmin):
     raw_id_fields = ('liked_by',)
     readonly_fields = ['created_at', ]
     inlines = [OwnersInline]
-
+    fieldsets = (
+        ('Статус',
+         {'fields': ('active', 'new_building')}
+         ),
+        ('Адрес',
+         {'fields': (('town', 'town_district'), 'address')}
+         ),
+        ('Общее',
+         {'fields': ('construction_year', 'created_at')}
+         ),
+        ('Квартира',
+         {'fields': ('rooms_number', 'has_balcony', 'floor', 'living_area', 'liked_by', 'price', 'description')}
+         )
+        )
+    list_per_page = 20
+    
 
 @admin.register(Complaint)
 class AdminComplaint(admin.ModelAdmin):
