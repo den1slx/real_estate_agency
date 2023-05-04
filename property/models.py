@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -8,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Flat(models.Model):
     created_at = models.DateTimeField(
         'Когда создано объявление',
-        default=timezone.now,
+        auto_now_add=True,
         db_index=True)
 
     description = models.TextField('Текст объявления', blank=True)
@@ -56,18 +55,18 @@ class Flat(models.Model):
 
 class Complaint(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Кто жаловался', related_name='complaints')
-    apartments = models.ManyToManyField(Flat, verbose_name='Адрес квартиры', related_name='apartment_complaints')
+    apartments = models.ManyToManyField(Flat, verbose_name='Адрес квартиры', related_name='complaints')
     text = models.TextField('Текст жалобы', null=True)
 
     def __str__(self):
-        return f'{self.id}'
+        return self.id
 
 
 class Owner(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
+    fullname = models.CharField('ФИО владельца', max_length=200)
     phonenumber = models.CharField('Номер владельца', max_length=20)
     pure_phone = PhoneNumberField(blank=True, null=True, verbose_name='Допустимый номер телефона')
     apartments = models.ManyToManyField(Flat, verbose_name='Квартиры владельца', related_name='owners')
 
     def __str__(self):
-        return self.owner
+        return self.fullname
