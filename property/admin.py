@@ -34,7 +34,7 @@ class AdminFlat(admin.ModelAdmin):
          )
         )
     list_per_page = 20
-    
+
 
 @admin.register(Complaint)
 class AdminComplaint(admin.ModelAdmin):
@@ -45,4 +45,4 @@ class AdminComplaint(admin.ModelAdmin):
 @admin.register(Owner)
 class AdminOwner(admin.ModelAdmin):
     raw_id_fields = ('apartments',)
-    search_fields = ('owner', 'apartments__id', 'apartments__town')
+    search_fields = ('fullname', 'apartments__id', 'apartments__town')
